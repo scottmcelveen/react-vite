@@ -10,7 +10,6 @@ export const Route = createFileRoute("/sales/secret")({
 });
 
 function RouteComponent() {
-  console.log("RENDERING THE SALES SECRET PAGE");
   useAuthenticate();
   return (
     <>

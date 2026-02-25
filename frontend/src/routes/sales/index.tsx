@@ -9,7 +9,6 @@ export const Route = createFileRoute("/sales/")({
 });
 
 function RouteComponent() {
-  console.log("RENDERING THE SALES INDEX");
   return (
     <>
       <h1 className="text-3xl font-bold">Sales dashboard page</h1>

@@ -27,3 +27,4 @@ dist-ssr
 */bin
 */.vite
 */**/.tanstack
+*.pem
