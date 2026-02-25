@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import ComingSoon from "@/components/coming-soon";
 
 export const Route = createFileRoute("/about")({
   component: RouteComponent,
@@ -10,7 +11,8 @@ export const Route = createFileRoute("/about")({
 function RouteComponent() {
   return (
     <>
-      <h1 className="text-3xl font-bold">About page</h1>
+      <h1 className="text-3xl font-bold">About Properly</h1>
+      <ComingSoon />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { useAuthenticate } from "@daveyplate/better-auth-ui";
+import { RedirectToSignIn, SignedIn } from "@daveyplate/better-auth-ui";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/sales")({
@@ -9,10 +9,12 @@ export const Route = createFileRoute("/sales")({
 });
 
 function RouteComponent() {
-  useAuthenticate();
   return (
     <>
-      <Outlet />
+      <RedirectToSignIn />
+      <SignedIn>
+        <Outlet />
+      </SignedIn>
     </>
   );
 }
