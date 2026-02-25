@@ -24,7 +24,9 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "./ui/collapsible";
-import { SignedIn, UserButton } from "@daveyplate/better-auth-ui";
+import { SignedIn } from "@daveyplate/better-auth-ui";
+import { ModeToggle } from "./mode-toggle";
+import UserButton from "./user-button";
 
 export function AppSidebar() {
   const matchRoute = useMatchRoute();
@@ -123,7 +125,14 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <UserButton size="icon" disableDefaultLinks={true} />
+        <div className="flex w-full items-center justify-between">
+          <div>
+            <UserButton />
+          </div>
+          <div className="justify-self-end">
+            <ModeToggle />
+          </div>
+        </div>
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
