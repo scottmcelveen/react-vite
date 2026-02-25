@@ -8,15 +8,15 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // Replace with your frontend's origin
-    methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
-    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+    origin: process.env.FRONTEND_HOST,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
   }),
 );
 app.all("/api/auth/{*any}", toNodeHandler(auth));
 app.use(express.json());
 
-const server = app.listen(3000, () =>
+const server = app.listen(process.env.LISTEN_PORT, () =>
   console.log(`
-🚀 Server ready at: http://localhost:3000`),
+🚀 Server ready`),
 );

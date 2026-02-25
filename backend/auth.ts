@@ -1,7 +1,7 @@
 import { betterAuth } from "better-auth";
 
 export const auth = betterAuth({
-  trustedOrigins: ["http://localhost:5173"], // Replace with your frontend's origin
+  trustedOrigins: [process.env.FRONTEND_HOST || ""],
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID || "",

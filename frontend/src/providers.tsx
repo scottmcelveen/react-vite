@@ -36,7 +36,7 @@ export function Providers({ children }: { children: ReactNode }) {
             social={{
               providers: ["google"],
             }}
-            baseURL="http://localhost:5173"
+            baseURL={import.meta.env.VITE_APP_FRONTEND_HOST}
           >
             {children}
           </AuthUIProviderTanstack>
