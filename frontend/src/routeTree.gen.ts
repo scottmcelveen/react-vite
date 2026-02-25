@@ -13,6 +13,8 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as SalesRouteRouteImport } from './routes/sales/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SalesIndexRouteImport } from './routes/sales/index'
+import { Route as SalesSecretRouteImport } from './routes/sales/secret'
+import { Route as AuthAuthViewRouteImport } from './routes/auth/$authView'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -34,16 +36,30 @@ const SalesIndexRoute = SalesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => SalesRouteRoute,
 } as any)
+const SalesSecretRoute = SalesSecretRouteImport.update({
+  id: '/secret',
+  path: '/secret',
+  getParentRoute: () => SalesRouteRoute,
+} as any)
+const AuthAuthViewRoute = AuthAuthViewRouteImport.update({
+  id: '/auth/$authView',
+  path: '/auth/$authView',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/sales': typeof SalesRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/auth/$authView': typeof AuthAuthViewRoute
+  '/sales/secret': typeof SalesSecretRoute
   '/sales/': typeof SalesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth/$authView': typeof AuthAuthViewRoute
+  '/sales/secret': typeof SalesSecretRoute
   '/sales': typeof SalesIndexRoute
 }
 export interface FileRoutesById {
@@ -51,20 +67,36 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/sales': typeof SalesRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/auth/$authView': typeof AuthAuthViewRoute
+  '/sales/secret': typeof SalesSecretRoute
   '/sales/': typeof SalesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sales' | '/about' | '/sales/'
+  fullPaths:
+    | '/'
+    | '/sales'
+    | '/about'
+    | '/auth/$authView'
+    | '/sales/secret'
+    | '/sales/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/sales'
-  id: '__root__' | '/' | '/sales' | '/about' | '/sales/'
+  to: '/' | '/about' | '/auth/$authView' | '/sales/secret' | '/sales'
+  id:
+    | '__root__'
+    | '/'
+    | '/sales'
+    | '/about'
+    | '/auth/$authView'
+    | '/sales/secret'
+    | '/sales/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SalesRouteRoute: typeof SalesRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
+  AuthAuthViewRoute: typeof AuthAuthViewRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -97,14 +129,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SalesIndexRouteImport
       parentRoute: typeof SalesRouteRoute
     }
+    '/sales/secret': {
+      id: '/sales/secret'
+      path: '/secret'
+      fullPath: '/sales/secret'
+      preLoaderRoute: typeof SalesSecretRouteImport
+      parentRoute: typeof SalesRouteRoute
+    }
+    '/auth/$authView': {
+      id: '/auth/$authView'
+      path: '/auth/$authView'
+      fullPath: '/auth/$authView'
+      preLoaderRoute: typeof AuthAuthViewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 interface SalesRouteRouteChildren {
+  SalesSecretRoute: typeof SalesSecretRoute
   SalesIndexRoute: typeof SalesIndexRoute
 }
 
 const SalesRouteRouteChildren: SalesRouteRouteChildren = {
+  SalesSecretRoute: SalesSecretRoute,
   SalesIndexRoute: SalesIndexRoute,
 }
 
@@ -116,6 +164,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SalesRouteRoute: SalesRouteRouteWithChildren,
   AboutRoute: AboutRoute,
+  AuthAuthViewRoute: AuthAuthViewRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

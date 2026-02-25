@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 export const Route = createFileRoute("/sales/")({
   component: RouteComponent,
   staticData: {
-    getTitle: () => "Sales",
+    getTitle: () => "Dashboard",
   },
 });
 

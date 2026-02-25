@@ -18,15 +18,16 @@ import { Link, useMatchRoute } from "@tanstack/react-router";
 import { Route as IndexRoute } from "@/routes/index";
 import { Route as AboutRoute } from "@/routes/about";
 import { Route as SalesIndexRoute } from "@/routes/sales";
+import { Route as SalesSecretRoute } from "@/routes/sales/secret";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "./ui/collapsible";
+import { SignedIn, UserButton } from "@daveyplate/better-auth-ui";
 
 export function AppSidebar() {
   const matchRoute = useMatchRoute();
-
   return (
     <Sidebar>
       <SidebarHeader>
@@ -67,7 +68,6 @@ export function AppSidebar() {
                 <SidebarMenuItem>
                   <CollapsibleTrigger asChild>
                     <SidebarMenuButton
-                      tooltip="Sales"
                       isActive={
                         matchRoute({
                           to: SalesIndexRoute.to,
@@ -82,7 +82,7 @@ export function AppSidebar() {
                   </CollapsibleTrigger>
                   <CollapsibleContent>
                     <SidebarMenuSub>
-                      <SidebarMenuSubItem key="sales-index">
+                      <SidebarMenuSubItem key="sales-dashboard">
                         <SidebarMenuSubButton
                           asChild
                           isActive={
@@ -97,6 +97,23 @@ export function AppSidebar() {
                           </Link>
                         </SidebarMenuSubButton>
                       </SidebarMenuSubItem>
+                      <SignedIn>
+                        <SidebarMenuSubItem key="sales-secret">
+                          <SidebarMenuSubButton
+                            asChild
+                            isActive={
+                              matchRoute({
+                                to: SalesSecretRoute.to,
+                                fuzzy: false,
+                              }) !== false
+                            }
+                          >
+                            <Link to={SalesSecretRoute.to}>
+                              <span>Secret</span>
+                            </Link>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      </SignedIn>
                     </SidebarMenuSub>
                   </CollapsibleContent>
                 </SidebarMenuItem>
@@ -106,7 +123,7 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <h1 className="text-2xl font-bold">Footer Goes Here</h1>
+        <UserButton size="icon" disableDefaultLinks={true} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
